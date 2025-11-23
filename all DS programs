@@ -1,0 +1,2665 @@
+==============================================================================================================================================================================================================================================================================================================================
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+
+Class: SY AIML & Data Science	Expt. No. : 01
+Title : Write a program to implement a stack by using arrays.
+Problem Staement :	Implement a stack by using arrays.
+Software Required :	
+CodeBlock
+Theory :	Stack using Array
+	A stack is a linear data structure that follows the LIFO (Last In, First Out)
+principle.
+This means the last element inserted into the stack will be the first one to be removed.
+	Stacks are mainly used for:
+Function calls and recursion (maintaining activation records)
+Expression evaluation and syntax parsing
+Undo/Redo operations in text editors
+Memory management in operating systems
+Depth-first search (DFS) in graphs and trees
+	Array Implementation
+	In the array implementation of a stack:
+oAn array of fixed size is used to store elements.
+oA variable top is used to track the index of the topmost element in the stack.
+
+	Key Concepts :
+In stack, we mainly perform three operations:
+1.Push: Insert an element onto the top of the stack.
+2.Pop: Remove the element from the top of the stack.
+3.Display (Traversal): View all elements of the stack from top to bottom.
+LIFO (Last-In, First-Out):
+oFundamental rule governing stack operations.
+oThe element that was most recently added is the first one to be taken out.
+Push:
+oAdds a new element to the top of the stack.
+oBefore pushing, the program must check for Stack Overflow
+(when the stack is full).
+Pop:
+oRemoves the topmost element from the stack.
+oBefore popping, the program must check for Stack Underflow
+(when the stack is empty).
+Top:
+oPointer/index that keeps track of the topmost element.
+oInitially, stack is empty and top = -1.
+Array Implementation:
+oStack can be implemented using a one-dimensional array.
+oThe array provides contiguous memory locations.
+oThe top index manages the stack’s elements.
+oThe size of the array determines maximum capacity of the stack.
+
+
+Advantages of Array Implementation
+Simple and easy to implement
+Random access to elements possible since arrays support indexing
+Limitations
+Fixed size; cannot grow beyond predefined capacity
+Requires manual handling of overflow and underflow conditions
+
+	Algorithm
+1.Push Operation (Insert)
+Step 1: If top == SIZE - 1, then
+oPrint "Stack Overflow" and Exit
+Step 2: Else
+oIncrement top by 1
+ostack[top] ← value
+oPrint "Value pushed into stack"
+
+2.Pop Operation (Delete)
+Step 1: If top == -1, then
+Print "Stack Underflow" and Exit Step 2: Else
+Print stack[top] as popped element Decrement top by 1
+
+3.Display Operation
+Step 1: If top == -1
+Print "Stack is empty"
+Step 2: Else
+For i = top to 0 do Print stack[i]
+
+Code	
+#include <stdio.h>
+#define SIZE 5  // Maximum size of the stack
+
+int stack[SIZE];  // Array to store stack elements
+int top = -1;	// Indicates the top position of the stack
+
+// Function to push an element into the stack void push(int value) {
+if (top == SIZE - 1) {
+printf("Stack Overflow! Cannot push %d\n", value);
+} else {
+top++;
+stack[top] = value;
+printf("%d pushed into stack.\n", value);
+}
+}
+
+// Function to pop an element from the stack void pop() {
+if (top == -1) {
+printf("Stack Underflow! No element to pop.\n");
+} else {
+printf("%d popped from stack.\n", stack[top]); top--;
+}
+}
+
+// Function to display stack elements void display() {
+if (top == -1) {
+printf("Stack is empty.\n");
+} else {
+printf("Stack elements: "); for (int i = top; i >= 0; i--) {
+printf("%d ", stack[i]);
+}
+printf("\n");
+}
+}
+
+	
+// Function to peek (view) the top element void peek() {
+if (top == -1) {
+printf("Stack is empty! Nothing to peek.\n");
+} else {
+printf("Top element is: %d\n", stack[top]);
+}
+}
+
+// Main function int main() {
+int choice, value; while (1) {
+printf("\n--- Stack Menu ---\n"); printf("1. Push\n");
+printf("2. Pop\n"); printf("3. Display\n"); printf("4. Peek\n");
+printf("5. Exit\n"); printf("Enter your choice: "); scanf("%d", &choice);
+
+switch (choice) { case 1:
+printf("Enter value to push: "); scanf("%d", &value); push(value);
+break; case 2:
+pop(); break;
+case 3:
+display(); break;
+case 4:
+peek(); break;
+case 5:
+return 0;
+
+	default:
+printf("Invalid choice! Try again.\n");
+}
+}
+}
+OUTPUT
+
+--- Stack Menu ---
+1.Push
+2.Pop
+3.Display
+4.Peek
+5.Exit
+Enter your choice: 1 Enter value to push: 10 10 pushed into stack.
+
+Enter your choice: 1 Enter value to push: 20 20 pushed into stack.
+
+Enter your choice: 1 Enter value to push: 30 30 pushed into stack.
+
+Enter your choice: 3 Stack elements: 30 20 10
+
+Enter your choice: 4 Top element is: 30
+
+Enter your choice: 2 30 popped from stack.
+
+Enter your choice: 3 Stack elements: 20 10
+
+Enter your choice: 2 20 popped from stack.
+
+Enter your choice: 2 10 popped from stack.
+
+	
+Enter your choice: 2
+Stack Underflow! No element to pop.
+
+--- Stack Menu ---
+1.Push
+2.Pop
+3.Display
+4.Peek
+5.Exit
+Enter your choice: 5
+
+
+=============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 02
+Title : Write a program to implement a circular queue using arrays.
+Problem Staement :	Implement a circular queue using arrays.
+
+Software Required :	CodeBlock
+
+Queue
+Theory :	A queue is a linear data structure that follows the FIFO (First In, First Out)
+	principle.
+	This means the element that is inserted first will be the first one to be
+	removed.
+	It works just like a real-life queue of people standing in line:
+	The person who comes first is served first.
+	New people join at the end (rear).
+	Service is given from the front.
+	Types of Queues:
+	1. Simple Queue (Linear Queue): Normal queue with FIFO principle.
+	2. Circular Queue: Last position connects back to the first to save memory.
+	3. Double-Ended Queue (Deque): Insertion and deletion allowed from
+	both ends.
+	4. Priority Queue: Elements are served based on priority, not order.
+
+	Circular Queue :
+A Circular Queue is a type of linear data structure in which the last position is connected back to the first position, forming a circle.
+It is also known as a Ring Buffer.
+Unlike a simple linear queue, where once the rear reaches the end of the array no more elements can be inserted (even if there are empty spaces at the front), a circular queue efficiently utilizes the empty spaces by wrapping around.
+Operations in Circular Queue:
+Enqueue (Insert): Add an element at the rear.
+Dequeue (Delete): Remove an element from the front.
+Peek: View the front element.
+Display: Show all elements from front to rear in circular order.
+Key Features of Circular Queue:
+Uses modular arithmetic (% SIZE) to wrap around.
+More efficient utilization of memory compared to a simple queue.
+Avoids the "false overflow" problem.
+Advantages of Circular Queue
+1.Efficient utilization of memory (no wastage of unused space).
+2.Prevents the problem of false overflow in a simple queue.
+3.Useful in CPU scheduling, buffering, and memory management.
+Algorithm: Circular Queue using Array
+1. Enqueue Operation (Insert):
+Step 1: If ( (front == 0 AND rear == SIZE-1) OR (front == rear+1) ), then Print "Queue Overflow" and Exit
+Step 2: Else
+If front == -1, then
+Set front = 0 // First element insertion Set rear = (rear + 1) % SIZE
+queue[rear] ← value
+Print "Value inserted into queue"
+
+	2.Dequeue Operation (Delete):
+Step 1: If front == -1, then
+Print "Queue Underflow" and Exit Step 2: Else
+Print queue[front] as deleted element If front == rear, then
+Set front = rear = -1 // Queue becomes empty Else
+Set front = (front + 1) % SIZE
+
+3.Peek Operation (View Front Element): Step 1: If front == -1, then
+Print "Queue is empty" Step 2: Else
+Print queue[front] as front element
+
+4.Display Operation:
+Step 1: If front == -1, then Print "Queue is empty"
+Step 2: Else
+Set i = front Repeat
+Print queue[i]
+i = (i + 1) % SIZE
+Until i == (rear + 1) % SIZE
+
+CODE	
+#include <stdio.h>
+#define SIZE 5	// Maximum size of circular queue int queue[SIZE];
+int front = -1, rear = -1;
+// Function to insert element (Enqueue) void enqueue(int value) {
+if ((rear + 1) % SIZE == front) {
+printf("Queue Overflow! Cannot insert %d\n", value);
+} else {
+if (front == -1) {
+// First element front = 0;
+}
+rear = (rear + 1) % SIZE; queue[rear] = value;
+printf("%d inserted into queue\n", value);
+}
+}
+// Function to delete element (Dequeue) void dequeue() {
+if (front == -1) {
+printf("Queue Underflow! Nothing to delete\n");
+
+	} else {
+printf("Deleted: %d\n", queue[front]); if (front == rear) {
+front = rear = -1;	// Queue becomes empty
+} else {
+front = (front + 1) % SIZE;
+}
+}
+}
+// Function to peek (view front element without removing) void peek() {
+if (front == -1) {
+printf("Queue is Empty! Nothing to peek.\n");
+} else {
+printf("Front element is: %d\n", queue[front]);
+}
+}
+// Function to display queue elements void display() {
+if (front == -1) { printf("Queue is Empty\n");
+} else {
+printf("Circular Queue: ");
+
+	int i = front;
+while (1) {
+printf("%d ", queue[i]); if (i == rear) {
+break;
+}
+i = (i + 1) % SIZE;
+}
+printf("\n");
+}
+}
+// Main function int main() {
+int choice, value; while (1) {
+printf("\n--- Circular Queue Menu ---\n"); printf("1. Enqueue (Insert)\n");
+printf("2. Dequeue (Delete)\n"); printf("3. Peek (Front Element)\n"); printf("4. Display\n");
+printf("5. Exit\n"); printf("Enter your choice: "); scanf("%d", &choice);
+
+	switch (choice) {
+case 1:	// Enqueue operation printf("Enter value to insert: "); scanf("%d", &value); enqueue(value);
+break;
+case 2:	// Dequeue operation dequeue();
+break;
+case 3:	// Peek operation peek();
+break;
+case 4:	// Display queue display();
+break;
+case 5:	// Exit program printf("Exiting program...\n"); return 0;
+default: // Invalid choice
+printf("Invalid choice! Please try again.\n");
+}
+}
+}
+
+	Output :
+--- Circular Queue Menu ---
+1.Enqueue (Insert)
+2.Dequeue (Delete)
+3.Peek (Front Element)
+4.Display
+5.Exit
+Enter your choice: 1 Enter value to insert: 10 10 inserted into queue
+
+Enter your choice: 1 Enter value to insert: 20 20 inserted into queue
+
+Enter your choice: 1 Enter value to insert: 30 30 inserted into queue
+
+Enter your choice: 4 Circular Queue: 10 20 30
+
+	
+Enter your choice: 3 Front element is: 10
+
+Enter your choice: 2 Deleted: 10
+
+Enter your choice: 4 Circular Queue: 20 30
+
+Enter your choice: 1 Enter value to insert: 40 40 inserted into queue
+
+Enter your choice: 4 Circular Queue: 20 30 40
+
+
+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309 Class: SY AIML & Data Science		Expt. No. : 03 (A) 
+Title : Write a program to implement a Singly linked list
+Problem Staement :
+
+
+
+Software Required :
+
+Theory :	To implement a program in C for performing various operations on a singly linked list, such as insertion, deletion, and display.
+
+
+CodeBlock
+
+
+What is Linked list ?
+A linked list is a linear data structure which can store a collection of "nodes" connected together via links i.e. pointers. Linked lists nodes are not stored at a contiguous location, rather they are linked using pointers to the different memory locations. A node consists of the data value and a pointer to the address of the next node within the linked list.
+A linked list is a dynamic linear data structure whose memory size can be allocated or de-allocated at run time based on the operation insertion or deletion, this helps in using system memory efficiently. Linked lists can be used to implment various data structures like a stack, queue, graph, hash maps, etc.
+
+Data	Next
+
+Data → stores the actual information.
+Next → stores the address of the next node.
+
+	The first node is called the head of the list, and the last node points to NULL, indicating the end of the list.
+Types of Linked Lists:
+Singly Linked List – nodes connected in one direction.
+Doubly Linked List – nodes connected in both directions.
+Circular Linked List – last node connects back to the head.
+1)Singly Linked List
+Singly linked lists contain two "buckets" in one node; one bucket holds the data and the other bucket holds the address of the next node of the list. Traversals can be done in one direction only as there is only a single link between two nodes of the same list.
+
+
+
+
+
+
+A singly linked list whose nodes contain two fields: an integer value (data) and a link to the next node
+Operations on Singly Linked List:
+1.Insert at Beginning: Add a new node before the head and update the head pointer.
+2.Insert at End: Traverse till the last node and add a new node at the end.
+3.Insert at Position: Traverse to the given position and insert the new node.
+4.Delete at Position: Remove the node from the specified position and adjust links.
+5.Display: Traverse the list and print all node values.
+1. Insert at Beginning Before:
+Head → [10 | next] → [20 | next] → [30 | NULL]
+
+Insert 5 at beginning:
+Head
+↓
+[5 | next] → [10 | next] → [20 | next] → [30 | NULL]
+
+2.Insert at End Before:
+Head → [10 | next] → [20 | next] → [30 | NULL]
+Insert 40 at end:
+Head → [10 | next] → [20 | next] → [30 | next] → [40 | NULL]
+3.Insert at Position Before:
+Head → [10 | next] → [30 | next] → [40 | NULL]
+Insert 20 at position 2:
+Head → [10 | next] → [20 | next] → [30 | next] → [40 | NULL]
+4.Delete at Position Before:
+Head → [10 | next] → [20 | next] → [30 | next] → [40 | NULL]
+Delete node at position 2 (20):
+Head → [10 | next] → [30 | next] → [40 | NULL]
+5.Display List
+Traverse from Head to NULL.
+Print data of each node.
+
+Example:  Head → [10 | next] → [20 | next] → [30 | NULL]
+Output:
+10 → 20 → 30 → NULL
+
+
+1 .Algorithm for Insertion at Beginning
+1.Create a new node.
+2.Assign data to the new node.
+3.Set newNode->next = head.
+4.Update head = newNode.
+2.Algorithm for Insertion at End
+1.Create a new node with data.
+2.Set newNode->next = NULL.
+3.If head == NULL, then set head = newNode and return.
+4.Else, traverse the list until temp->next == NULL.
+5.Set temp->next = newNode.
+3.Algorithm for Insertion at Position
+1.Create a new node and assign data.
+2.If position = 1, set newNode->next = head, update head = newNode.
+3.Else, traverse the list until the node before the desired position.
+4.If the position is invalid (greater than list length), print "Position out of range".
+5.Else, insert the new node by adjusting links:
+onewNode->next = temp->next
+otemp->next = newNode
+4.Algorithm for Deletion at Position
+1.If head == NULL, print "List is empty" and return.
+2.If position = 1:
+oSet head = head->next.
+oFree the first node.
+3.Else, traverse the list until the node before the given position.
+4.If position is invalid, print "Position out of range".
+5.Else, adjust links to skip the node and free its memory.
+5.Algorithm for Display
+1.If head == NULL, print "List is empty".
+
+2.Else, set temp = head.
+3.Traverse the list until temp == NULL:
+oPrint temp->data.
+oMove to next node (temp = temp->next).
+Code :
+#include <stdio.h> #include <stdlib.h>
+struct Node // Structure of a node
+{
+int data;
+struct Node* next;
+};
+struct Node* head = NULL; // Global head pointer
+void insertAtBeginning(int value) // Insert at beginning
+{
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->data = value;
+newNode->next = head; head = newNode;
+}
+// Insert at end
+void insertAtEnd(int value) {
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->data = value;
+newNode->next = NULL; if (head == NULL) {
+head = newNode;
+} else {
+struct Node* temp = head; while (temp->next != NULL) {
+temp = temp->next;
+}
+temp->next = newNode;
+}
+}
+// Insert at specific position
+void insertAtPosition(int value, int pos) {
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->data = value;
+if (pos == 1) { // Insert at beginning newNode->next = head;
+head = newNode; return;
+}
+
+struct Node* temp = head;
+for (int i = 1; i < pos - 1 && temp != NULL; i++) { temp = temp->next;
+}
+if (temp == NULL) {
+printf("Position out of range!\n"); free(newNode);
+} else {
+newNode->next = temp->next; temp->next = newNode;
+}
+}
+// Delete a node by position void deleteAtPosition(int pos) {
+if (head == NULL) { printf("List is empty\n"); return;
+}
+struct Node* temp = head;
+if (pos == 1) { // Delete first node head = head->next; free(temp);
+return;
+}
+struct Node* prev = NULL;
+for (int i = 1; i < pos && temp != NULL; i++) { prev = temp;
+temp = temp->next;
+}
+if (temp == NULL) {
+printf("Position out of range!\n"); return;
+}
+prev->next = temp->next; free(temp);
+}
+// Display the linked list void display() {
+struct Node* temp = head; if (temp == NULL) {
+printf("List is empty\n"); return;
+}
+printf("Linked List: "); while (temp != NULL) {
+printf("%d -> ", temp->data); temp = temp->next;
+
+}
+printf("NULL\n");
+}
+// Main function int main() {
+int choice, value, pos; while (1) {
+printf("\n--- Singly Linked List Menu ---\n"); printf("1. Insert at Beginning\n");
+printf("2. Insert at End\n"); printf("3. Insert at Position\n"); printf("4. Delete at Position\n"); printf("5. Display List\n"); printf("6. Exit\n");
+printf("Enter choice: "); scanf("%d", &choice); switch (choice) {
+case 1:
+printf("Enter value: "); scanf("%d", &value); insertAtBeginning(value); break;
+case 2:
+printf("Enter value: "); scanf("%d", &value); insertAtEnd(value); break;
+case 3:
+printf("Enter value: "); scanf("%d", &value); printf("Enter position: "); scanf("%d", &pos); insertAtPosition(value, pos); break;
+case 4:
+printf("Enter position to delete: "); scanf("%d", &pos); deleteAtPosition(pos);
+break; case 5:
+display(); break;
+case 6:
+exit(0); default:
+printf("Invalid choice!\n");
+}
+
+}
+return 0;
+}
+
+
+
+
+OutPut :
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 1
+Enter value: 10
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 2
+Enter value: 20
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 2
+Enter value: 30
+
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 5
+Linked List: 10 -> 20 -> 30 -> NULL
+
+
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 3
+Enter value: 15
+Enter position: 2
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 5
+Linked List: 10 -> 15 -> 20 -> 30 -> NULL
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 4
+Enter position to delete: 3
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+5.Display List
+6.Exit
+Enter choice: 5
+Linked List: 10 -> 15 -> 30 -> NULL
+--- Singly Linked List Menu ---
+1.Insert at Beginning
+2.Insert at End
+3.Insert at Position
+4.Delete at Position
+
+
+
+
+
+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 03(B)
+Title : Write a progra to implement a Doubly linked list
+Problem Staement :
+
+Software Required
+
+
+Theory :	To implement insertion, deletion, and traversal operations on a Doubly Linked List .
+
+
+CodeBlock
+
+
+Doubly Linked List
+A Doubly Linked List in C is a versatile data structure that connects nodes in a sequential chain using pointers. Each node in this list consists of three essential components:
+Data: Stores the actual value or information of the node.
+Previous Pointer: Contains the address of the preceding node in the sequence, allowing backward traversal.
+Next Pointer: Holds the address of the next node, enabling forward traversal.
+
+
+
+
+Unlike a Singly Linked List, which can only be traversed in the forward direction, a doubly linked list allows traversal in both directions (forward and backward). This makes certain operations, like deletion, easier and more efficient.
+
+	
+
+
+Representation of Doubly Linked List :
+
+
+
+
+
+Insertion Example :
+Suppose we insert: 10, 20, 30
+Step 1: Insert 10 (Head = 10) NULL <- [10] -> NULL
+Step 2: Insert 20
+NULL <- [10] <-> [20] -> NULL
+Step 3: Insert 30
+NULL <- [10] <-> [20] <-> [30] -> NULL
+
+Deletion Example
+Delete node at position 2 (value = 20):
+Before: NULL <- [10] <-> [20] <-> [30] -> NULL After : NULL <- [10] <-> [30] -> NULL
+Advantages of Doubly Linked List
+Traversal is possible in both directions.
+Deletion is more efficient since we have access to the previous node.
+Insertions and deletions in the middle are faster compared to singly linked lists.
+Disadvantages
+Requires extra memory for the prev pointer.
+
+More complex implementation compared to singly linked list.
+Applications
+Used in implementing navigation (forward & backward in browsers).
+Undo/redo functionality in text editors.
+Memory management systems.
+Deques and advanced data structures.
+Operations in Doubly Linked List :
+1.Insertion at End
+A new node is created and inserted at the end of the list.
+If the list is empty, the new node becomes the head.
+Otherwise, traversal is done to the last node, and the new node is linked after it.
+Algorithm:
+1.Create a new node with given data.
+2.If the list is empty:
+oSet head = newNode.
+3.Else:
+oTraverse to the last node.
+oUpdate last node’s next pointer to newNode.
+oSet newNode’s prev to last node.
+2.Deletion of a Node (by Position)
+The node at a given position is removed.
+If it is the first node, the head pointer is updated.
+If it is a middle or last node, pointers of adjacent nodes are updated.
+Algorithm:
+1.If the list is empty, display "List is empty".
+2.If position = 1:
+oUpdate head to head->next.
+oIf new head exists, set head->prev = NULL.
+oFree the first node.
+3.Else:
+
+oTraverse to the node at given position.
+oUpdate its previous node’s next to its next.
+oUpdate its next node’s prev to its prev.
+oFree the node.
+3.Display
+Traverse from head to the end, printing each node’s data.
+Connections are shown using <->.
+
+Code :
+
+#include <stdio.h> #include <stdlib.h>
+// Structure of a node struct Node {
+int data;
+struct Node* next; struct Node* prev;
+};
+struct Node* head = NULL; // Global head pointer
+// Insert element at end
+void insertElement(int value) {
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->data = value;
+newNode->next = NULL; if (head == NULL) {
+newNode->prev = NULL; head = newNode;
+} else {
+struct Node* temp = head; while (temp->next != NULL) {
+temp = temp->next;
+}
+temp->next = newNode; newNode->prev = temp;
+}
+}
+
+// Delete node by position void deleteNode(int pos) {
+if (head == NULL) { printf("List is empty\n"); return;
+}
+struct Node* temp = head; if (pos == 1) {
+head = temp->next;
+
+if (head != NULL) { head->prev = NULL;
+}
+free(temp); return;
+}
+for (int i = 1; i < pos && temp != NULL; i++) { temp = temp->next;
+}
+
+if (temp == NULL) {
+printf("Position out of range!\n"); return;
+}
+if (temp->prev != NULL) {
+temp->prev->next = temp->next;
+}
+if (temp->next != NULL) {
+temp->next->prev = temp->prev;
+}
+
+free(temp);
+}
+// Display the list void display() {
+struct Node* temp = head; if (temp == NULL) {
+printf("List is empty\n"); return;
+}
+printf("Doubly Linked List: ");
+
+
+Output:
+--- Doubly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 1
+Enter value: 10
+Enter choice: 1
+Enter value: 20
+
+Enter choice: 1
+Enter value: 30
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 03(C)
+Title : Write a program to implement a Circular Linked List
+Problem Staement
+
+Software Required
+
+
+Theory :	To implement insertion, deletion, and traversal operations on a Circular Linked List .
+
+CodeBlock
+
+Circular Linked List
+
+A linked list is a linear data structure where elements (called nodes) are connected using pointers. Unlike arrays, linked lists do not require contiguous memory allocation, which makes insertion and deletion operations more efficient.
+A Circular Singly Linked List (CSLL) is a special type of linked list where:
+Each node contains data and a pointer to the next node.
+The last node does not point to NULL, but instead points back to the head node, forming a circle.
+This circular connection allows traversal to continue from the last node back to the first node, making the list suitable for applications where a circular traversal is needed (e.g., round-robin scheduling, circular queues).
+
+1. Circular Singly Linked List
+Here, the address of the last node consists of the address of the first node.
+
+	
+
+
+
+
+Advantages of Circular Singly Linked List
+1.Efficient traversal: You can start at any node and reach all others in a circular manner.
+2.Saves space compared to linear linked lists where last node points to NULL.
+3.Useful in applications requiring cyclic iteration (e.g., multiplayer games, round-robin scheduling, buffers).
+
+Disadvantages
+1.Traversal is more complex compared to linear linked lists.
+2.Extra care is needed while performing insertion and deletion to maintain circular structure.
+3.No direct access to elements (sequential access only).
+
+
+Algorithm :
+Insertion at End
+Step 1: Create newNode and assign value to data. Step 2: If head == NULL:
+head = newNode newNode->next = head
+Else:
+temp = head
+While (temp->next != head): temp = temp->next
+temp->next = newNode newNode->next = head
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Code :	2.Deletion by Position
+Step 1: If head == NULL → print "List is empty" and return. Step 2: If pos == 1:
+If head->next == head: free(head)
+head = NULL Else:
+Find last node
+last->next = head->next temp = head
+head = head->next free(temp)
+Step 3: Else:
+Traverse list until position
+If position invalid → print "Out of range"
+Else adjust prev->next = temp->next free(temp)
+3.Display List
+Step 1: If head == NULL → print "List is empty" and return. Step 2: Start with temp = head
+Step 3: Do
+Print temp->data temp = temp->next
+While (temp != head)
+Step 4: Print (head) to indicate circular nature.
+
+#include <stdio.h> #include <stdlib.h>
+// Structure of a node struct Node {
+int data;
+struct Node* next;
+};
+
+struct Node* head = NULL; // Global head pointer
+// Function to insert element at the end void insertElement(int value) {
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->data = value;
+
+
+if (head == NULL) { // First node head = newNode;
+newNode->next = head; // Circular link
+} else {
+struct Node* temp = head;
+while (temp->next != head) { // Traverse till last node temp = temp->next;
+}
+temp->next = newNode;
+newNode->next = head; // Point back to head
+}
+}
+
+// Function to delete node by position void deleteNode(int pos) {
+if (head == NULL) { printf("List is empty\n"); return;
+}
+
+struct Node* temp = head;
+
+// Case 1: Delete first node if (pos == 1) {
+if (head->next == head) { // Only one node free(head);
+head = NULL; return;
+}
+
+struct Node* last = head;
+while (last->next != head) { // Find last node last = last->next;
+}
+last->next = head->next; head = head->next; free(temp);
+return;
+}
+
+// Case 2: Delete at other position struct Node* prev = NULL;
+for (int i = 1; i < pos && temp->next != head; i++) { prev = temp;
+temp = temp->next;
+}
+
+if (temp == head) { // Position out of range printf("Position out of range!\n");
+
+return;
+}
+
+prev->next = temp->next; free(temp);
+}
+// Function to display the list void display() {
+if (head == NULL) { printf("List is empty\n"); return;
+}
+struct Node* temp = head; printf("Circular Singly Linked List: ");
+
+do {
+printf("%d -> ", temp->data); temp = temp->next;
+} while (temp != head);
+
+printf("(head)\n");
+}
+
+// Main function int main() {
+int choice, value, pos;
+while (1) {
+printf("\n--- Circular Singly Linked List Menu ---\n"); printf("1. Insert Element\n");
+printf("2. Delete Node (by position)\n"); printf("3. Display List\n");
+printf("4. Exit\n"); printf("Enter choice: "); scanf("%d", &choice);
+switch (choice) { case 1:
+printf("Enter value: "); scanf("%d", &value); insertElement(value); break;
+case 2:
+printf("Enter position to delete: "); scanf("%d", &pos); deleteNode(pos);
+break; case 3:
+display(); break;
+
+case 4:
+exit(0); default:
+printf("Invalid choice!\n");
+}
+}
+return 0;
+}
+
+Output
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 1
+Enter value: 10
+
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 1
+Enter value: 20
+
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 1
+Enter value: 30
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 3
+Circular Singly Linked List: 10 -> 20 -> 30 -> (head)
+
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 2
+
+Enter position to delete: 2
+
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 3
+Circular Singly Linked List: 10 -> 30 -> (head)
+
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 1
+Enter value: 40
+
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 3
+Circular Singly Linked List: 10 -> 30 -> 40 -> (head)
+--- Circular Singly Linked List Menu ---
+1.Insert Element
+2.Delete Node (by position)
+3.Display List
+4.Exit
+Enter choice: 4
+
+
+
+
+=============================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 04
+Title : Write a program to implement a Stack Using linked list such that the push and pop operation of the stack still take O(1) time.
+Problem Staement
+
+Software Required
+
+
+Theory :	To implement a Stack Using linked list CodeBlock
+
+Stack Using Linked List
+What is a Stack?
+
+A stack is a linear data structure that follows the Last In First Out (LIFO) principle. This means the element added last is removed first.
+Stack Operations:
+
+Push – Insert an element onto the stack
+Pop – Remove the top element
+Peek/Top – View the top element without removing it
+isEmpty – Check if the stack is empty
+Why Use Linked List for Stack?
+
+Dynamic size: No need to predefine size as in array-based stack
+Efficient: Memory is allocated only when needed
+Linked List Stack Structure:
+
+Each node contains:
+data – value of the element
+next – pointer to the next node
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Code :	The top of the stack is represented by the head of the linked list.
+Algorithm
+PUSH(x)
+
+1.Create a new node
+2.Assign data = x
+3.Set new_node->next = top
+4.Update top = new_node
+
+POP()
+
+1.If top is NULL
+-Stack Underflow (Nothing to pop)
+2.Else
+-Temp = top
+-top = top->next
+-Delete temp
+PEEK()
+1.If top is NULL
+-Stack is empty
+2.Else
+-Return top->data
+
+isEmpty()
+
+Return true if top == NULL, else false
+
+
+
+
+#include <stdio.h> #include <stdlib.h>
+
+// Define structure for a stack node struct Node {
+int data;
+struct Node* next;
+};
+
+// Initialize stack as empty struct Node* top = NULL;
+// Function to push an element onto the stack void push(int value) {
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); if (newNode == NULL) {
+printf("Stack Overflow! Unable to allocate memory.\n"); return;
+}
+newNode->data = value;
+
+	newNode->next = top; // Link new node to previous top top = newNode;	// Make new node the top printf("%d pushed to stack.\n", value);
+}
+
+// Function to pop an element from the stack void pop() {
+if (top == NULL) {
+printf("Stack Underflow! No elements to pop.\n"); return;
+}
+struct Node* temp = top;
+printf("%d popped from stack.\n", top->data); top = top->next;
+free(temp);
+}
+// Function to peek at the top element void peek() {
+if (top == NULL) {
+printf("Stack is empty! Nothing to peek.\n");
+} else {
+printf("Top element is: %d\n", top->data);
+}
+}
+
+// Function to display elements of the stack void display() {
+if (top == NULL) { printf("Stack is empty.\n"); return;
+}
+struct Node* temp = top;
+printf("Stack elements (top to bottom): "); while (temp != NULL) {
+printf("%d -> ", temp->data); temp = temp->next;
+}
+printf("NULL\n");
+}
+
+// Main function to perform stack operations int main() {
+int choice, value;
+
+while (1) {
+printf("\n--- Stack using Linked List ---\n"); printf("1. Push\n");
+printf("2. Pop\n");
+printf("3. Peek\n"); printf("4. Display\n"); printf("5. Exit\n"); printf("Enter your choice: "); scanf("%d", &choice);
+switch (choice) { case 1:
+
+	printf("Enter value to push: "); scanf("%d", &value); push(value);
+break; case 2:
+pop(); break;
+case 3:
+peek(); break;
+case 4:
+display(); break;
+case 5:
+printf("Exiting...\n"); exit(0);
+default:
+printf("Invalid choice! Please try again.\n");
+}
+}
+return 0;
+}
+
+Output :
+
+--- Stack using Linked List ---
+1.Push
+2.Pop
+3.Peek
+4.Display
+5.Exit
+Enter your choice: 1 Enter value to push: 10 10 pushed to stack.
+
+--- Stack using Linked List ---
+1.Push
+2.Pop
+3.Peek
+4.Display
+5.Exit
+Enter your choice: 1 Enter value to push: 20 20 pushed to stack.
+
+--- Stack using Linked List --- Enter your choice: 4
+Stack elements (top to bottom): 20 -> 10 -> NULL
+Enter your choice: 3 Top element is: 20
+Enter your choice: 2 20 popped from stack.
+
+Enter your choice: 4
+
+	Stack elements (top to bottom): 10 -> NULL
+
+
+
+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 7
+Title : Write a program to implement a Insertion Sorting
+Problem Staement	To implement insertion sort.
+Software Required	
+CodeBlock
+Theory :	
+	Insertion Sort is one of the simplest and most intuitive sorting algorithms. It is based on the idea of building a sorted list one element at a time by comparing and inserting each new element into its correct position in an already sorted part of the list.
+	Concept and Working Principle
+	The array is divided into two parts:
+oLeft side (sorted part) – elements that are already arranged in order.
+oRight side (unsorted part) – elements that are yet to be arranged.
+The algorithm starts from the second element (index 1), assuming that the first element is already sorted.
+It picks the current element (called key) and compares it with the elements on the left side.
+All elements that are greater than the key are shifted one position to the right to make space for the key.
+The key is then placed in its correct sorted position.
+
+	This process is repeated for all elements in the array until the entire list becomes sorted.
+
+
+Advantages:
+1.Simple and easy to understand.
+2.Efficient for small datasets.
+3.Performs well for nearly sorted data.
+4.Requires no additional memory (in-place algorithm).
+5.Stable sort — preserves relative order of equal elements.
+
+
+5.Disadvantages:
+1.Inefficient for large datasets (O(n²) time complexity).
+2.More comparisons and shifts as the number of elements increases.
+3.Not suitable for large lists compared to algorithms like Merge Sort or Quick Sort.
+
+Example :
+Take Array[]=[7,4,5,2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Code :	
+ALGORITHM:
+1.Start
+2.Read the number of elements and the array elements.
+3.Repeat for i = 1 to n-1:
+oSet temp = arr[i]
+oSet j = i - 1
+oWhile j >= 0 and arr[j] > temp:
+Move arr[j] to position j + 1
+Decrement j by 1
+oInsert key at position j + 1
+4.Display the sorted array.
+5.Stop
+
+
+#include <stdio.h> int main() {
+int a[100], n, i, j, temp;
+
+printf("Enter number of elements: "); scanf("%d", &n);
+printf("Enter %d elements:\n", n); for (i = 0; i < n; i++)
+scanf("%d", &a[i]);
+
+// Insertion Sort logic for (i = 1; i < n; i++) {
+temp = a[i]; j = i - 1;
+while (j >= 0 && a[j] > temp) { a[j + 1] = a[j];
+j--;
+}
+a[j + 1] = temp;
+}
+
+	printf("Sorted array:\n"); for (i = 0; i < n; i++)
+printf("%d ", a[i]);
+
+return 0;
+}
+
+Output:
+Enter number of elements: 5 Enter 5 elements:
+5 2 4 6 1
+Sorted array:
+1 2 4 5 6
+
+
+
+==================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 8
+Title : Write a program to implement a Merge Sort
+Problem Staement
+
+Software Required
+
+
+Theory :	To implement merge sort
+
+CodeBlock
+
+
+
+Theory:
+Merge Sort is a divide and conquer sorting algorithm.
+It divides the unsorted array into smaller subarrays until each subarray contains a single element, then merges these subarrays to produce new sorted subarrays until there is only one sorted array remaining.
+Working Steps:
+1.Divide: Split the array into two halves.
+2.Conquer: Recursively sort the two halves.
+3.Combine: Merge the two sorted halves into a single sorted array.
+Concept of Divide and Conquer:
+The Divide and Conquer approach breaks a problem into smaller subproblems, solves each subproblem independently, and then combines the results to obtain the final solution.
+Merge Sort applies this idea in three main steps:
+1.Divide:
+The array is divided into two halves (approximately equal parts).
+
+	This division continues recursively until each subarray contains a single element.
+2.Conquer (Sort):
+Each of these smaller subarrays is considered sorted because a single element is trivially sorted.
+3.Combine (Merge):
+The sorted subarrays are merged together in a way that the resulting array is also sorted.
+This merging process continues until all subarrays are combined into one fully sorted array.
+Example to Understand Merge Sort:
+
+
+
+
+Let’s consider an example array: [70,30,50,10]
+Step 1 – Divide:
+Divide the array into two halves recursively: [70,30] and [50,10]
+And again:
+[70] [30] [50] [10]
+
+	Step 2 – Conquer (Merge):
+Now merge pairs of subarrays while sorting them:
+[30,70] [10,50]
+Step 3 – Combine:
+Continue merging the sorted subarrays:
+[10,30,50,70]
+Finally:
+[10,30,50,70]
+Thus, the array is completely sorted.
+Advantages:
+1.Very efficient for large datasets.
+2.Guarantees O(n log n) time complexity for all cases.
+3.It is a stable sorting algorithm.
+4.Performs well on linked lists (does not require random access).
+5.Can be easily implemented using recursion.
+Disadvantages:
+1.Requires extra memory (O(n)) for temporary arrays during the merge process.
+2.Not suitable for small datasets compared to simpler algorithms like
+Insertion Sort or Bubble Sort.
+3.Recursive calls increase overhead and may cause stack overflow for very large arrays.
+Algorithm: MergeSort(A, low, high)
+1.If low < high
+1.Find mid = (low + high) / 2
+2.Call MergeSort(A, low, mid)
+3.Call MergeSort(A, mid + 1, high)
+4.Call Merge(A, low, mid, high)
+
+
+
+
+
+
+Code :	Algorithm: Merge(A, low, mid, high)
+1.Create temporary arrays for left and right subarrays.
+2.Compare elements of both subarrays and copy the smaller one to the main array.
+3.Copy the remaining elements of left or right subarray (if any).
+
+
+#include <stdio.h>
+void merge(int a[], int left, int mid, int right) { int temp[100];
+int i = left;	// start of first half
+int j = mid + 1;	// start of second half int k = left;	// start of temp array
+// Compare and copy smaller element into temp while (i <= mid && j <= right) {
+if (a[i] < a[j]) temp[k++] = a[i++];
+else
+temp[k++] = a[j++];
+}
+// Copy remaining elements (if any) from first half while (i <= mid)
+temp[k++] = a[i++];
+// Copy remaining elements (if any) from second half while (j <= right)
+temp[k++] = a[j++];
+// Copy back to original array for (i = left; i <= right; i++)
+a[i] = temp[i];
+}
+void mergeSort(int a[], int left, int right) { if (left < right) {
+int mid = (left + right) / 2;
+// Divide the array into two halves
+
+	mergeSort(a, left, mid); mergeSort(a, mid + 1, right);
+// Merge the two sorted halves merge(a, left, mid, right);
+}
+}
+int main() {
+int a[100], n, i;
+printf("Enter number of elements: "); scanf("%d", &n);
+printf("Enter %d elements:\n", n); for (i = 0; i < n; i++)
+scanf("%d", &a[i]);
+// Call merge sort mergeSort(a, 0, n - 1);
+printf("Sorted array:\n"); for (i = 0; i < n; i++)
+printf("%d ", a[i]);
+return 0;
+}
+
+Output :
+Enter number of elements: 6 Enter 6 elements:
+10 3 5 2 8 1
+Sorted array: 1 2 3 5 8 10
+
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 9
+Title : Write a program to implement a quick Sort
+Problem Staement
+
+Software Required
+
+
+Theory :	To implement quick sort
+
+CodeBlock
+
+
+
+Theory:
+QuickSort is an efficient, comparison-based, divide-and-conquer sorting algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then recursively sorted.
+Working Principle:
+Choose a Pivot:
+An element is chosen from the array to act as the pivot. Common choices include the first, last, middle, or a random element.
+Partitioning:
+The array is rearranged such that all elements smaller than the pivot are placed to its left, and all elements greater than the pivot are placed to its right. The pivot element is then in its correct sorted position.
+Recursive Sorting:
+QuickSort is then recursively applied to the sub-array of elements smaller than the pivot and the sub-array of elements greater than the pivot.
+Base Case:
+
+	The recursion stops when a sub-array contains zero or one element, as such an array is already considered sorted.
+Key Characteristics:
+Divide and Conquer: It breaks down the sorting problem into smaller, independent subproblems.
+In-Place Sorting: It typically sorts the array in-place, meaning it requires minimal additional memory.
+Time Complexity:
+Average and Best Case: O(n log n)
+Worst Case: O(n^2) (occurs with poor pivot selection, e.g., consistently picking the smallest or largest element)
+Space Complexity: O(log n) due to the recursive call stack.
+Not Stable: QuickSort is generally not a stable sorting algorithm, meaning the relative order of equal elements might not be preserved.
+
+How It Works (Step-by-Step)
+Input array:
+[10, 7, 8, 9, 1, 5]
+
+Step 1:
+Pivot = last element = 5
+Compare each element with 5 → elements less than 5 go to the left.
+After partition →
+[1, 5, 8, 9, 10, 7]
+Pivot 5 is now in correct position (index 1). Step 2:
+Left side → [1] (already sorted)
+Right side → [8, 9, 10, 7]
+
+Choose pivot = 7
+After partition → [7, 9, 10, 8] → [7, 8, 10, 9]
+
+	Step 3:
+Continue recursively sorting left and right sides until entire array is sorted.
+Final Sorted Array:
+1 5 7 8 9 10
+
+
+Algorithm:
+Step 1: Choose the last element as the pivot. Step 2: Partition the array such that:
+→ Elements smaller than pivot are on the left.
+→ Elements greater than pivot are on the right.
+Step 3: Place the pivot in its correct position.
+Step 4: Recursively apply steps 1–3 to left and right subarrays. Step 5: Repeat until all elements are sorted.
+
+
+Flow of the Algorithm:
+QuickSort(arr, start, end)
+|
+|-- if start < end
+|	pivotIndex = partition(arr, start, end)
+|	QuickSort(arr, start, pivotIndex - 1)
+|	QuickSort(arr, pivotIndex + 1, end)
+|
+|-- else
+|	return
+
+
+
+
+Advantages of Quick Sort
+It is a divide-and-conquer algorithm that makes it easier to solve problems.
+It is efficient on large data sets.
+It has a low overhead, as it only requires a small amount of memory to function.
+It is Cache Friendly as we work on the same array to sort and do not copy data to any auxiliary array.
+Fastest general purpose algorithm for large data when stability is not required.
+It is tail recursive and hence all the tail call optimization can be done.
+
+
+
+
+
+
+Code :	
+
+#include <stdio.h>
+
+// Function to swap two elements void swap(int arr[], int i, int j) {
+int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+}
+
+// Function to partition the array
+int partition(int arr[], int start, int end) {
+int pivot = arr[end]; // choose last element as pivot int i = start - 1;	// index of smaller element
+
+for (int j = start; j < end; j++) { if (arr[j] < pivot) {
+i++;
+swap(arr, i, j);
+}
+}
+
+swap(arr, i + 1, end); // place pivot in correct position return (i + 1);
+}
+// Function to perform Quick Sort
+void quickSort(int arr[], int start, int end) { if (start < end) {
+int pivotIndex = partition(arr, start, end);
+quickSort(arr, start, pivotIndex - 1); // sort left side quickSort(arr, pivotIndex + 1, end); // sort right side
+}
+}
+
+// Function to print the array void printArray(int arr[], int n) {
+for (int i = 0; i < n; i++) {
+
+	printf("%d ", arr[i]);
+}
+printf("\n");
+}
+
+int main() {
+int arr[100], n;
+printf("Enter number of elements: "); scanf("%d", &n);
+
+printf("Enter %d elements: ", n); for (int i = 0; i < n; i++) {
+scanf("%d", &arr[i]);
+}
+
+quickSort(arr, 0, n - 1);
+
+printf("Sorted array: "); printArray(arr, n);
+
+return 0;
+}
+
+
+Output :
+Enter number of elements: 6 Enter 6 elements: 10 7 8 9 1 5
+Sorted array: 1 5 7 8 9 10
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 10
+Title : Write a program to implement a Heap Sort
+Problem Staement
+
+Software Required
+
+
+Theory :	To implement Heap sort.
+
+
+
+CodeBlock
+
+Heap Sort is a comparison-based sorting algorithm that uses a binary heap data structure
+(usually a max heap).
+A max heap is a complete binary tree in which each parent node is greater than or equal to its child nodes.
+Heap Sort works in two main phases:
+1.Build a Max Heap from the unsorted array.
+2.Extract elements one by one from the heap (the largest element at the root) and rebuild the heap.
+Key Properties of a Heap:
+
+It is a complete binary tree (all levels are filled except possibly the last, filled from left to right).
+Each node follows the heap property:
+oMax Heap: parent ≥ children
+oMin Heap: parent ≤ children
+
+Algorithm :
+Step 1: Build Max Heap
+
+Start from the last non-leaf node (n/2 - 1) and call heapify() for each node up to the root.
+
+	heapify() ensures the subtree rooted at node i follows the max heap property.
+Step 2: Heap Sort Process
+
+Swap the first element (maximum) with the last element of the heap.
+Reduce heap size by 1.
+Call heapify() on the root node to rebuild the max heap.
+Repeat until only one element remains.
+Algorithm Steps:
+HEAPSORT(A, n)
+
+1.Build a max heap from the array. for i = n/2 - 1 down to 0:
+heapify(A, n, i)
+2.For i = n - 1 down to 1: swap A[0] and A[i] heapify(A, i, 0)
+
+heapify()=
+
+The goal of heapify() is to fix the heap property starting from a given node downward.If a parent node violates the heap rule (for example, smaller than its child in a max heap),
+then heapify() swaps the parent with the larger child and recursively continues this process for the affected subtree.
+Example:
+Array: [4, 2, 7]
+
+Step 1: Initial Tree (before heapify)
+
+4
+/ \
+2	7
+
+
+Step 2: After Building Max Heap
+
+Largest element (7) moves to the root.
+7
+/ \
+2	4
+
+Array: [7, 2, 4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Code :	
+Step 3: Sorting Process After swapping 7 ↔ 4:
+4
+/
+2
+
+Array: [4, 2, 7]
+
+Heapify again → [4, 2] is already a heap.
+Swap 4 ↔ 2:
+2
+
+Array: [2, 4, 7]
+
+Final Sorted Array:
+
+[2, 4, 7]
+
+#include <stdio.h>
+void heapify(int a[], int n, int i) { int largest = i;
+int left = 2 * i + 1; int right = 2 * i + 2;
+if (left < n && a[left] > a[largest]) largest = left;
+
+if (right < n && a[right] > a[largest]) largest = right;
+
+if (largest != i) { int temp = a[i]; a[i] = a[largest];
+a[largest] = temp; heapify(a, n, largest);
+}
+}
+
+void heapSort(int a[], int n) { for (int i = n / 2 - 1; i >= 0; i--)
+heapify(a, n, i);
+
+for (int i = n - 1; i > 0; i--) { int temp = a[0];
+a[0] = a[i]; a[i] = temp;
+heapify(a, i, 0);
+
+	}
+}
+
+int main() {
+int a[100], n;
+printf("Enter number of elements: "); scanf("%d", &n);
+
+printf("Enter %d elements:\n", n); for (int i = 0; i < n; i++)
+scanf("%d", &a[i]); heapSort(a, n);
+printf("Sorted array: "); for (int i = 0; i < n; i++) printf("%d ", a[i]);
+return 0;
+}
+
+
+Output:
+
+Enter number of elements: 5 Enter 5 elements:
+4 10 3 5 1
+Sorted array: 1 3 4 5 10
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 11
+Title : Write a program to implement a create a binary search tree by considering the keys in given order and perform the opertions 1)minimum key 2)maximum key 3)search for given key 4)find predecessor 5)find successor
+6)delete a node with given key
+Problem Staement
+
+Software Required
+
+
+Theory :	create a binary search tree by considering the krys in given order and perform the opertions
+1)minimum key 2)maximum key 3)search for given key 4)find predecessor 5)find successor 6)delete a node with given key
+CodeBlock
+
+
+A Binary Search Tree (BST) is a type of binary tree where each node follows these rules:
+All keys in the left subtree are smaller than the node’s key.
+All keys in the right subtree are greater than the node’s key.
+Both left and right subtrees are also BSTs.
+BSTs are used to perform search, insert, and delete operations efficiently.
+
+
+1.Insertion
+Algorithm
+If tree is empty, create a new node as root.
+If key < current node → move left.
+If key > current node → move right.
+Repeat until NULL position is found → insert node.
+Example:
+Insert 50 → root = 50
+Insert 30 → left of 50
+Insert 70 → right of 50
+
+	Insert 20 → left of 30
+Insert 40 → right of 30
+Tree Structure:
+50
+/ \
+30  70
+/ \ 20 40
+
+
+
+
+2.Find Minimum
+The minimum key in a BST is located at the leftmost node.
+Traversing the left children from the root leads to the minimum value.
+Algorithm
+Start from root → keep moving left until NULL → leftmost node is minimum.
+Example:
+Minimum = 20 (leftmost node)
+
+
+3.Find Maximum
+The maximum key in a BST is located at the rightmost node.
+Traversing the right children from the root leads to the maximum value.
+Algorithm
+Start from root → keep moving right until NULL → rightmost node is maximum.
+Example:
+Maximum = 70 (rightmost node)
+
+
+4.Search
+Algorithm
+1.Start at root.
+2.If key = current node → found.
+
+	3.If key < node → move left.
+4.If key > node → move right.
+5.Repeat until key found or NULL.
+Example:
+Search 40 → 40 < 50 → left → 40 > 30 → right → found
+
+
+5.Deletion
+Algorithm
+1.Find the node to delete.
+2.If no child → remove node.
+3.If one child → connect child to parent.
+4.If two children → replace with inorder successor (min in right subtree) and delete successor.
+Example:
+Delete 50 → two children → inorder successor = 70 → replace 50 with 70
+Updated tree:
+70
+/ 30
+/ \ 20 40
+
+6.Inorder Traversal
+Inorder traversal visits nodes in the order: left → root → right.
+For a BST, inorder traversal produces sorted order of keys.
+Algorithm
+Visit left subtree → root → right subtree recursively.
+Example:
+Inorder traversal → 20 30 40 70
+Applications of BST
+Efficient search, insert, and delete operations (average case O(log n))
+Maintaining sorted data dynamically
+
+
+Code :	Used in symbol tables, databases, and priority queues
+#include <stdio.h> #include <stdlib.h>
+
+struct Node { int key;
+struct Node* left; struct Node* right;
+};
+
+// Create a new node
+struct Node* createNode(int key) {
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->key = key;
+newNode->left = newNode->right = NULL; return newNode;
+}
+// Insert key into BST
+struct Node* insert(struct Node* root, int key) { if (root == NULL) {
+return createNode(key);
+}
+if (key < root->key) {
+root->left = insert(root->left, key);
+} else if (key > root->key) {
+root->right = insert(root->right, key);
+}
+return root;
+}
+// Find minimum key
+struct Node* findMin(struct Node* root) { while (root->left != NULL) {
+root = root->left;
+}
+return root;
+}
+
+// Find maximum key
+struct Node* findMax(struct Node* root) { while (root->right != NULL) {
+root = root->right;
+}
+return root;
+}
+
+	// Search for a key
+struct Node* search(struct Node* root, int key) { while (root != NULL) {
+if (key == root->key) { return root;
+} else if (key < root->key) { root = root->left;
+} else {
+root = root->right;
+}
+}
+return NULL;
+}
+// Inorder traversal
+void inorder(struct Node* root) { if (root != NULL) {
+inorder(root->left); printf("%d ", root->key); inorder(root->right);
+}
+}
+// Delete a node
+struct Node* deleteNode(struct Node* root, int key) { if (root == NULL) {
+return NULL;
+}
+
+if (key < root->key) {
+root->left = deleteNode(root->left, key);
+} else if (key > root->key) {
+root->right = deleteNode(root->right, key);
+} else {
+// Node with one or no child if (root->left == NULL) {
+struct Node* temp = root->right; free(root);
+return temp;
+} else if (root->right == NULL) { struct Node* temp = root->left; free(root);
+return temp;
+}
+// Node with two children
+
+	struct Node* temp = findMin(root->right); root->key = temp->key;
+root->right = deleteNode(root->right, temp->key);
+}
+
+return root;
+}
+
+int main() {
+struct Node* root = NULL; int choice, key;
+while (1) {
+printf("\nBST Operations:\n"); printf("1. Insert\n");
+printf("2. Minimum\n"); printf("3. Maximum\n"); printf("4. Search\n"); printf("5. Delete\n");
+printf("6. Inorder Traversal\n"); printf("7. Exit\n");
+printf("Enter your choice: "); scanf("%d", &choice);
+switch (choice) { case 1:
+printf("Enter key to insert: "); scanf("%d", &key);
+root = insert(root, key); break;
+case 2:
+if (root != NULL) {
+printf("Minimum key: %d\n", findMin(root)->key);
+} else {
+printf("BST is empty.\n");
+}
+break;
+
+case 3:
+if (root != NULL) {
+printf("Maximum key: %d\n", findMax(root)->key);
+} else {
+printf("BST is empty.\n");
+}
+break;
+
+	case 4:
+printf("Enter key to search: "); scanf("%d", &key);
+if (search(root, key) != NULL) { printf("Key %d found.\n", key);
+} else {
+printf("Key %d not found.\n", key);
+}
+break;
+case 5:
+printf("Enter key to delete: "); scanf("%d", &key);
+root = deleteNode(root, key); break;
+case 6:
+printf("Inorder Traversal: "); inorder(root);
+printf("\n"); break;
+case 7:
+exit(0);
+
+default:
+printf("Invalid choice.\n");
+}
+}
+return 0;
+}
+
+
+
+Output :
+BST Operations:
+1.Insert
+2.Minimum
+3.Maximum
+4.Search
+5.Delete
+6.Inorder Traversal
+7.Exit
+Enter your choice: 1 Enter key to insert: 50
+
+	Enter your choice: 1 Enter key to insert: 30
+Enter your choice: 1 Enter key to insert: 70
+
+Enter your choice: 1 Enter key to insert: 20
+Enter your choice: 1 Enter key to insert: 40
+Enter your choice: 6
+Inorder Traversal: 20 30 40 50 70
+
+Enter your choice: 2 Minimum key: 20
+Enter your choice: 3 Maximum key: 70
+Enter your choice: 4 Enter key to search: 40 Key 40 found.
+
+Enter your choice: 5 Enter key to delete: 50
+Enter your choice: 6
+Inorder Traversal: 20 30 40 70
+Enter your choice: 7 Exiting program.
+
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 12
+Title : Write a program to implement a Hashing using Separate Chaining
+Problem Staement	To implement Hashing using Separate Chaining
+
+Software Required	CodeBlock
+
+Theory :	
+	What is Hashing?
+	Hashing is a technique used to map data (keys) to a fixed-size table (called a hash table)
+	using a hash function.
+	It allows fast insertion, deletion, and searching operations — usually in O(1) average time.
+	Hash Function
+	A hash function converts a key into an index value where the data will be stored in the hash
+	table.
+	For example:
+	h(key)=key%SIZEh(key) = key \% SIZEh(key)=key%SIZE
+	Here, SIZE is the total number of slots (or buckets) in the hash table.
+	Example:
+	key = 23, SIZE = 10
+	h(23) = 23 % 10 = 3
+	So key 23 is stored at index 3.
+
+	Collision in Hashing
+A collision occurs when two keys generate the same hash index. Example:
+h(23) = 3
+h(43) = 3
+
+→ Both keys want to be stored at index 3 → Collision!
+Collision Resolution by Separate Chaining
+In Separate Chaining, each index of the hash table is associated with a linked list. All keys that hash to the same index are stored in that list.
+So, when a collision occurs:
+A new node is created for the key.
+It is added to the end of the linked list at that index.
+This technique is also known as Open Hashing.
+Structure of Hash Table
+hashTable[0] → NULL hashTable[1] → NULL hashTable[2] → NULL
+hashTable[3] → 23 → 43 → 13 → NULL hashTable[4] → NULL
+
+Each index may contain:
+NULL, if no key hashed there
+A linked list of nodes, if collisions occurred
+Advantages
+1.Simple to implement using linked lists.
+2.Handles collisions efficiently by storing multiple keys in a list.
+3.No clustering like in linear probing.
+4.Easy deletion — just remove the node from the list.
+5.Works well at high load factors — lists grow dynamically.
+6.Supports all key values, including 0 and negatives.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Code :	3.Algorithm
+Algorithm for Hash Function
+int hash(int key) return key % SIZE
+
+
+Algorithm for Insertion
+1.Compute index = hash(key)
+2.Create a new node with data = key
+3.If hashTable[index] == NULL
+→ Insert node as the first node Else
+→ Traverse the linked list at hashTable[index]
+→ Insert node at the end of the list
+4.Display success message
+
+
+Algorithm for Searching
+1.Compute index = hash(key)
+2.Set temp = hashTable[index]
+3.While temp != NULL
+If temp->data == key
+→ Print "Key found" and return Else
+→ Move temp = temp->next
+4.If loop ends → Print "Key not found"
+
+
+Algorithm for Display
+1.For each index from 0 to SIZE-1 Print index number
+Set temp = hashTable[i] If temp == NULL
+→ Print "NULL" Else
+→ While temp != NULL Print temp->data temp = temp->next
+
+#include <stdio.h> #include <stdlib.h>
+
+#define SIZE 10 // Size of the hash table
+// Node structure for linked list
+
+	struct Node { int data;
+struct Node* next;
+};
+
+// Hash table: array of linked list heads struct Node* hashTable[SIZE];
+// Hash function: returns index for a key int hash(int key) {
+return key % SIZE;
+}
+
+// Insert a key into the hash table void insert(int key) {
+int index = hash(key);
+struct Node* newNode = (struct Node*)malloc(sizeof(struct Node)); newNode->data = key;
+newNode->next = NULL;
+// If slot is empty, insert directly if (hashTable[index] == NULL) {
+hashTable[index] = newNode;
+} else {
+// Collision: append to end of linked list struct Node* temp = hashTable[index]; while (temp->next != NULL)
+temp = temp->next; temp->next = newNode;
+}
+
+printf("Inserted %d at index %d\n", key, index);
+}
+
+// Search for a key in the hash table void search(int key) {
+int index = hash(key);
+struct Node* temp = hashTable[index]; int pos = 0;
+
+	while (temp != NULL) {
+if (temp->data == key) {
+printf("Key %d found at index %d (position %d in chain)\n", key, index, pos + 1);
+return;
+}
+temp = temp->next; pos++;
+}
+
+printf("Key %d not found!\n", key);
+}
+
+// Display the entire hash table void display() {
+printf("\nHash Table (Separate Chaining):\n"); for (int i = 0; i < SIZE; i++) {
+printf("[%d]:", i);
+struct Node* temp = hashTable[i]; if (temp == NULL) {
+printf(" NULL");
+} else {
+while (temp != NULL) {
+printf(" -> %d", temp->data); temp = temp->next;
+}
+}
+printf("\n");
+}
+}
+
+// Main program: menu-driven int main() {
+int choice, key;
+
+// Initialize hash table for (int i = 0; i < SIZE; i++)
+hashTable[i] = NULL;
+while (1) {
+
+	printf("\n===== HASHING MENU (Separate Chaining) =====\n"); printf("1. Insert\n");
+printf("2. Search\n"); printf("3. Display\n"); printf("4. Exit\n"); printf("Enter your choice: "); scanf("%d", &choice);
+switch (choice) { case 1:
+printf("Enter key to insert: "); scanf("%d", &key); insert(key);
+break;
+case 2:
+printf("Enter key to search: "); scanf("%d", &key); search(key);
+break;
+
+case 3:
+display(); break;
+
+case 4:
+printf("Exiting program...\n"); return 0;
+default:
+printf("Invalid choice! Please try again.\n");
+}
+}
+
+return 0;
+}
+
+Output :
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+
+	3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 23 Inserted 23 at index 3
+
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 43 Inserted 43 at index 3
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 13 Inserted 13 at index 3
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 27 Inserted 27 at index 7
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 3
+
+Hash Table (Separate Chaining): [0]: NULL
+[1]: NULL
+[2]: NULL
+[3]: -> 23 -> 43 -> 13
+[4]: NULL
+[5]: NULL
+
+	[6]: NULL
+[7]: -> 27
+[8]: NULL
+[9]: NULL
+
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 2 Enter key to search: 43
+Key 43 found at index 3 (position 2 in chain)
+
+===== HASHING MENU (Separate Chaining) =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 2 Enter key to search: 99 Key 99 not found!
+
+
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+Shri Vile Parle Kelavani Mandal's
+INSTITUTE OF TECHNOLOGY
+DHULE (M.S.)
+DEPARMENT OF COMPUTER ENGINEERING
+Subject : Data Structure Lab	Subject Code : 24AFAIPCL309
+Class: SY AIML & Data Science	Expt. No. : 13
+Title : Write a program to implement a Hashing using Open addressing
+Problem Staement
+
+Software Required
+
+
+Theory :	To implement Hashing using Open addressing(Linear Probing) CodeBlock
+
+Open Addressing
+In open addressing, all keys are stored directly in the hash table array.
+When a collision occurs, the algorithm searches for the next available slot using a
+probing sequence.
+Linear Probing
+Linear Probing is a type of open addressing:
+If the calculated index is occupied, check (index + 1) % SIZE.
+Repeat until an empty slot is found.
+Wrap around to the beginning if necessary.
+Probing sequence:
+h(key), (h(key)+1)%SIZE, (h(key)+2)%SIZE, ...
+
+
+Example
+
+	Keys: 23, 43, 13, 27
+Hash function: h(key) = key % 10
+
+
+
+
+
+
+
+
+
+
+
+
+Hash Table:
+[0]: NULL
+[1]: NULL
+[2]: NULL
+[3]: 23
+[4]: 43
+[5]: 13
+[6]: NULL
+[7]: 27
+[8]: NULL
+[9]: NULL
+
+int hashTable[SIZE]; // Array representing hash table
+
+0 → indicates an empty slot.
+Keys are stored directly in the array.
+
+
+Algorithms
+Initialize
+for i = 0 to SIZE-1
+hashTable[i] = 0 // empty slot
+
+
+Insert Key
+1.Compute index = hash(key)
+2.While hashTable[index] != 0 index = (index + 1) % SIZE
+3.Insert key at hashTable[index]
+4.Print "Inserted key at index"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Code :	Search Key
+1.Compute index = hash(key)
+2.Set start = index
+3.While hashTable[index] != 0 If hashTable[index] == key
+Print "Key found at index"
+Return
+index = (index + 1) % SIZE
+If index == start → break (table fully searched)
+4.Print "Key not found"
+
+
+Display Table
+For i = 0 to SIZE-1
+If hashTable[i] == 0 → print NULL Else → print hashTable[i]
+
+Program Explanation
+1.initialize() → sets all slots to 0 (empty).
+2.hash() → returns index for a key.
+3.insert() → places key using linear probing in case of collisions.
+4.search() → finds key using linear probing.
+5.display() → prints all hash table slots.
+6.main() → menu-driven program for insert, search, display, exit.
+Advantages
+
+1.Simple to implement using array.
+2.Fast average-case performance for low load factors.
+3.No extra memory required (like linked lists).
+
+
+
+
+
+#include <stdio.h>
+#define SIZE 10 // Size of hash table int hashTable[SIZE];
+// Initialize hash table
+void initialize() {
+
+	for (int i = 0; i < SIZE; i++)
+hashTable[i] = 0; // 0 indicates empty slot
+}
+// Hash function int hash(int key) {
+return key % SIZE;
+}
+// Insert a key using linear probing void insert(int key) {
+int index = hash(key);
+
+// Find empty slot using linear probing while (hashTable[index] != 0) {
+index = (index + 1) % SIZE;
+}
+hashTable[index] = key;
+printf("Inserted %d at index %d\n", key, index);
+}
+// Search for a key void search(int key) {
+int index = hash(key); int start = index;
+while (hashTable[index] != 0) { if (hashTable[index] == key) {
+printf("Key %d found at index %d\n", key, index); return;
+}
+index = (index + 1) % SIZE;
+
+// Stop if we circled back to start if (index == start)
+break;
+}
+printf("Key %d not found!\n", key);
+}
+
+// Display the hash table void display() {
+printf("\nHash Table:\n"); for (int i = 0; i < SIZE; i++) {
+if (hashTable[i] == 0)
+
+	printf("[%d] : NULL\n", i); else
+printf("[%d] : %d\n", i, hashTable[i]);
+}
+}
+
+// Main function: menu-driven program int main() {
+int choice, key;
+initialize(); // Initialize hash table while (1) {
+printf("\n===== HASHING MENU =====\n");
+printf("1. Insert\n"); printf("2. Search\n"); printf("3. Display\n"); printf("4. Exit\n"); printf("Enter your choice: "); scanf("%d", &choice);
+
+switch (choice) { case 1:
+printf("Enter key to insert: "); scanf("%d", &key); insert(key);
+break;
+case 2:
+printf("Enter key to search: "); scanf("%d", &key); search(key);
+break;
+
+case 3:
+display(); break;
+
+case 4:
+printf("Exiting program...\n"); return 0;
+default:
+printf("Invalid choice! Please try again.\n");
+}
+}
+
+	return 0;
+}
+
+
+Output :
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 23 Inserted 23 at index 3
+
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 43 Inserted 43 at index 4
+
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 13 Inserted 13 at index 5
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 1 Enter key to insert: 27 Inserted 27 at index 7
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+
+	Enter your choice: 3
+Hash Table:
+[0]: NULL
+[1]: NULL
+[2]: NULL
+[3]: 23
+[4]: 43
+[5]: 13
+[6]: NULL
+[7]: 27
+[8]: NULL
+[9]: NULL
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 2 Enter key to search: 43 Key 43 found at index 4
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 2 Enter key to search: 99 Key 99 not found!
+===== HASHING MENU =====
+1.Insert
+2.Search
+3.Display
+4.Exit
+Enter your choice: 4 Exiting program...
+
+
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+
+
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
+
+
+
+
+
+=======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================
